@@ -1,3 +1,4 @@
+import { Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import Catalog from "../../features/catalog/Catalog";
 import { Product } from "../models/product";
@@ -16,11 +17,10 @@ function App() {
   };
 
   return (
-    <div className="app">
-      <h1 style={{color: 'black'}}>Re-Store</h1> {/* inline styling */}
+    <>
+      <Typography variant='h1'>Re-Store</Typography> {/* inline styling */}
       <Catalog products={products} addProduct={addProduct}/>
-     
-    </div>
+    </>
   );
 }
 
