@@ -1,23 +1,8 @@
 import { useEffect, useState } from "react";
+import { Product } from "./product";
 
 function App() {
-  const [productArr, setProducts] = useState([
-    {
-      id: 1,
-      name: 'item 1',
-      price: 5
-    },
-    {
-      id: 2,
-      name: 'item 2',
-      price: 8
-    },
-    {
-      id: 3,
-      name: 'item 3',
-      price: 11
-    }
-  ]);
+  const [productArr, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     fetch('http://localhost:5000/api/products')
@@ -33,10 +18,10 @@ function App() {
     <div className="app">
       <h1 style={{color: 'black'}}>Re-Store</h1> {/* inline styling */}
       <h6>|-------------------------------|</h6>
-      {productArr.map((item, index ) => ( 
+      {productArr.map((product, index ) => ( 
           /* rounded brackets help to avoid return statement, and used for one line of code which is going to be returned
             while curly brackets require return */
-          <h4 key={index}>{item.name} - ${item.price}</h4>  
+          <h4 key={index}>{product.name} - ${product.price}</h4>  
           /* a key with its unique value should be added to each element which has been created in loop */
           /* one of solution whould be using second argument of map - index */
         ))
