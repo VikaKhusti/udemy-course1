@@ -1,31 +1,34 @@
-import { CssBaseline } from "@mui/material";
+import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import { Container } from "@mui/system";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Catalog from "../../features/catalog/Catalog";
-import { Product } from "../models/product";
 import Header from "./Header";
 
 function App() {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [darkMode, setDarkMode] = useState(false);
 
-  useEffect(() => {
-    fetch('http://localhost:5000/api/products')
-      .then(response => response.json())
-      .then(data => setProducts(data))
-  }, []) /* [] means that this code will be run just once, but not every time component load */
+  const paletteMode = darkMode ? 'dark' : 'light';
+  const theme = createTheme({
+    palette: {
+      mode: paletteMode,
+      background: {
+        default: paletteMode ==='light' ? '#eaeaea' : '#121212'
+      }
+    }
+  })
 
-  function addProduct(){
-    setProducts(prevState => [...prevState, {id: 4, name: 'new item', price: 13}])
-  };
+  function toogleDarkMode() {
+    setDarkMode(!darkMode);
+  }
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Header />
+      <Header darkMode={darkMode} setDarkMode={toogleDarkMode}/>
       <Container>
-        <Catalog products={products} addProduct={addProduct}/>
+        <Catalog />
       </Container>
-    </>
+    </ThemeProvider>
   );
 }
 
